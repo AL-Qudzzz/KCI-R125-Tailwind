@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jadwal & Rute - KCI Fast Train</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+    <link rel="stylesheet" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@400;500;700;800" />
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-white min-h-screen flex flex-col" style='font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'>
+    <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f4f2f0] px-10 py-3">
+      <div class="flex items-center gap-4 text-[#181411]">
+        <div class="size-4">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M39.5563 34.1455V13.8546C39.5563 15.708 36.8773 17.3437 32.7927 18.3189C30.2914 18.916 27.263 19.2655 24 19.2655C20.737 19.2655 17.7086 18.916 15.2073 18.3189C11.1227 17.3437 8.44365 15.708 8.44365 13.8546V34.1455C8.44365 35.9988 11.1227 37.6346 15.2073 38.6098C17.7086 39.2069 20.737 39.5564 24 39.5564C27.263 39.5564 30.2914 39.2069 32.7927 38.6098C36.8773 37.6346 39.5563 35.9988 39.5563 34.1455Z" fill="currentColor"></path>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M10.4485 13.8519C10.4749 13.9271 10.6203 14.246 11.379 14.7361C12.298 15.3298 13.7492 15.9145 15.6717 16.3735C18.0007 16.9296 20.8712 17.2655 24 17.2655C27.1288 17.2655 29.9993 16.9296 32.3283 16.3735C34.2508 15.9145 35.702 15.3298 36.621 14.7361C37.3796 14.246 37.5251 13.9271 37.5515 13.8519C37.5287 13.7876 37.4333 13.5973 37.0635 13.2931C36.5266 12.8516 35.6288 12.3647 34.343 11.9175C31.79 11.0295 28.1333 10.4437 24 10.4437C19.8667 10.4437 16.2099 11.0295 13.657 11.9175C12.3712 12.3647 11.4734 12.8516 10.9365 13.2931C10.5667 13.5973 10.4713 13.7876 10.4485 13.8519ZM37.5563 18.7877C36.3176 19.3925 34.8502 19.8839 33.2571 20.2642C30.5836 20.9025 27.3973 21.2655 24 21.2655C20.6027 21.2655 17.4164 20.9025 14.7429 20.2642C13.1498 19.8839 11.6824 19.3925 10.4436 18.7877V34.1275C10.4515 34.1545 10.5427 34.4867 11.379 35.027C12.298 35.6207 13.7492 36.2054 15.6717 36.6644C18.0007 37.2205 20.8712 37.5564 24 37.5564C27.1288 37.5564 29.9993 37.2205 32.3283 36.6644C34.2508 36.2054 35.702 35.6207 36.621 35.027C37.4573 34.4867 37.5485 34.1546 37.5563 34.1275V18.7877ZM41.5563 13.8546V34.1455C41.5563 36.1078 40.158 37.5042 38.7915 38.3869C37.3498 39.3182 35.4192 40.0389 33.2571 40.5551C30.5836 41.1934 27.3973 41.5564 24 41.5564C20.6027 41.5564 17.4164 41.1934 14.7429 40.5551C12.5808 40.0389 10.6502 39.3182 9.20848 38.3869C7.84205 37.5042 6.44365 36.1078 6.44365 34.1455L6.44365 13.8546C6.44365 12.2684 7.37223 11.0454 8.39581 10.2036C9.43325 9.3505 10.8137 8.67141 12.343 8.13948C15.4203 7.06909 19.5418 6.44366 24 6.44366C28.4582 6.44366 32.5797 7.06909 35.657 8.13948C37.1863 8.67141 38.5667 9.3505 39.6042 10.2036C40.6278 11.0454 41.5563 12.2684 41.5563 13.8546Z" fill="currentColor"></path>
+          </svg>
+        </div>
+        <h2 class="text-[#181411] text-lg font-bold leading-tight tracking-[-0.015em]">RailExpress</h2>
+      </div>
+      <div class="flex flex-1 justify-end gap-8">
+        <div class="flex items-center gap-9">
+          <a class="text-[#181411] text-sm font-medium leading-normal" href="index.html">Home</a>
+          <a class="text-[#181411] text-sm font-medium leading-normal" href="booking.html">Book</a>
+          <a class="text-[#181411] text-sm font-medium leading-normal" href="jadwal.html">Destinations</a>
+          <a class="text-[#181411] text-sm font-medium leading-normal" href="experience.html">Experience</a>
+          <a class="text-[#181411] text-sm font-medium leading-normal" href="offers.html">Offers</a>
+        </div>
+        <button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#e87a30] text-white text-sm font-bold leading-normal tracking-[0.015em]">
+          <span class="truncate">Sign In</span>
+        </button>
+      </div>
+    </header>
+    <div class="px-40 flex flex-1 justify-center py-5">
+        <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+            <!-- Hero Section -->
+            <div class="@container">
+                <div class="@[480px]:p-4">
+                    <div class="flex min-h-[480px] flex-col gap-6 bg-cover bg-center bg-no-repeat @[480px]:gap-8 @[480px]:rounded-lg items-start justify-end px-4 pb-10 @[480px]:px-10 bg-white border border-[#e5dfdc]">
+                        <div class="flex flex-col gap-2 text-left w-full">
+                            <h1 class="text-[#181411] text-4xl font-black leading-tight tracking-[-0.033em] @[480px]:text-5xl">
+                                Jadwal & Rute Kereta Cepat
+                            </h1>
+                            <p class="text-[#887263] text-base font-normal leading-normal">
+                                Lihat jadwal keberangkatan dan rute kereta cepat di seluruh stasiun
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Route Map Section -->
+            <div class="mt-8 px-4">
+                <h2 class="text-[#181411] text-[22px] font-bold leading-tight tracking-[-0.015em] mb-6">Peta Rute</h2>
+                <div class="bg-white border border-[#e5dfdc] rounded-lg p-6">
+                    <div class="relative h-[400px]">
+                        <canvas id="routeMap"></canvas>
+                    </div>
+                    <div class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="flex items-center gap-2">
+                            <div class="w-3 h-3 rounded-full bg-[#e87a30]"></div>
+                            <span class="text-sm text-[#887263]">Stasiun Utama</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-3 h-3 rounded-full bg-[#887263]"></div>
+                            <span class="text-sm text-[#887263]">Stasiun Transit</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-1 h-6 bg-[#e87a30]"></div>
+                            <span class="text-sm text-[#887263]">Rute Utama</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-1 h-6 bg-[#887263]"></div>
+                            <span class="text-sm text-[#887263]">Rute Transit</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Schedule Section -->
+            <div class="mt-8 px-4">
+                <h2 class="text-[#181411] text-[22px] font-bold leading-tight tracking-[-0.015em] mb-6">Jadwal Keberangkatan</h2>
+                <div class="bg-white border border-[#e5dfdc] rounded-lg p-6">
+                    <div class="flex flex-col md:flex-row gap-4 mb-6">
+                        <select id="stasiunFilter" class="flex-1 rounded-lg border border-[#e5dfdc] p-2 text-[#181411]">
+                            <option value="">Semua Stasiun</option>
+                            <option value="jakarta">Jakarta/Halim</option>
+                            <option value="bandung">Bandung (Tegalluar)</option>
+                            <option value="kroya">Kroya</option>
+                            <option value="yogyakarta">Yogyakarta</option>
+                            <option value="solo">Solo</option>
+                            <option value="madiun">Madiun</option>
+                            <option value="jombang">Jombang/Kertosono</option>
+                            <option value="surabaya">Surabaya</option>
+                        </select>
+                        <select id="arahFilter" class="flex-1 rounded-lg border border-[#e5dfdc] p-2 text-[#181411]">
+                            <option value="">Semua Arah</option>
+                            <option value="timur">Jakarta → Surabaya</option>
+                            <option value="barat">Surabaya → Jakarta</option>
+                        </select>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="border-b border-[#e5dfdc]">
+                                    <th class="text-left py-3 px-4 text-[#181411] font-medium">No. KA</th>
+                                    <th class="text-left py-3 px-4 text-[#181411] font-medium">Stasiun Asal</th>
+                                    <th class="text-left py-3 px-4 text-[#181411] font-medium">Waktu Berangkat</th>
+                                    <th class="text-left py-3 px-4 text-[#181411] font-medium">Stasiun Tujuan</th>
+                                    <th class="text-left py-3 px-4 text-[#181411] font-medium">Waktu Tiba</th>
+                                    <th class="text-left py-3 px-4 text-[#181411] font-medium">Durasi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="scheduleTableBody">
+                                <!-- Schedule rows will be inserted here by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="flex justify-center">
+        <div class="flex max-w-[960px] flex-1 flex-col">
+            <footer class="flex flex-col gap-6 px-5 py-10 text-center @container">
+                <div class="flex flex-wrap items-center justify-center gap-6 @[480px]:flex-row @[480px]:justify-around">
+                    <a class="text-[#887263] text-base font-normal leading-normal min-w-40" href="#">About Us</a>
+                    <a class="text-[#887263] text-base font-normal leading-normal min-w-40" href="#">Contact</a>
+                    <a class="text-[#887263] text-base font-normal leading-normal min-w-40" href="#">Terms of Service</a>
+                    <a class="text-[#887263] text-base font-normal leading-normal min-w-40" href="#">Privacy Policy</a>
+                </div>
+                <p class="text-[#887263] text-base font-normal leading-normal">@2024 RailExpress. All rights reserved.</p>
+            </footer>
+        </div>
+    </footer>
+
+    <script>
+        // Route Map Configuration
+        const ctx = document.getElementById('routeMap').getContext('2d');
+        const stations = [
+            { name: 'Jakarta', x: 0, y: 50, type: 'main' },
+            { name: 'Bandung', x: 20, y: 50, type: 'main' },
+            { name: 'Kroya', x: 40, y: 50, type: 'transit' },
+            { name: 'Yogyakarta', x: 60, y: 50, type: 'main' },
+            { name: 'Solo', x: 70, y: 50, type: 'transit' },
+            { name: 'Madiun', x: 80, y: 50, type: 'transit' },
+            { name: 'Jombang', x: 90, y: 50, type: 'transit' },
+            { name: 'Surabaya', x: 100, y: 50, type: 'main' }
+        ];
+
+        new Chart(ctx, {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    data: stations.map(s => ({ x: s.x, y: s.y })),
+                    backgroundColor: stations.map(s => s.type === 'main' ? '#e87a30' : '#887263'),
+                    pointRadius: 8,
+                    pointHoverRadius: 10,
+                    showLine: true,
+                    borderColor: '#e87a30',
+                    borderWidth: 2,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        display: false,
+                        min: -5,
+                        max: 105
+                    },
+                    y: {
+                        display: false,
+                        min: 0,
+                        max: 100
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return stations[context.dataIndex].name;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Schedule Data and Rendering
+        const schedules = [
+            {
+                no: 'KC-101',
+                asal: 'Jakarta/Halim',
+                berangkat: '05:00',
+                tujuan: 'Surabaya',
+                tiba: '10:30',
+                durasi: '5j 30m',
+                arah: 'timur'
+            },
+            {
+                no: 'KC-102',
+                asal: 'Surabaya',
+                berangkat: '06:00',
+                tujuan: 'Jakarta/Halim',
+                tiba: '11:30',
+                durasi: '5j 30m',
+                arah: 'barat'
+            },
+            // Add more schedules as needed
+        ];
+
+        function renderSchedules(stasiun = '', arah = '') {
+            const filteredSchedules = schedules.filter(s => 
+                (!stasiun || s.asal.toLowerCase().includes(stasiun.toLowerCase()) || s.tujuan.toLowerCase().includes(stasiun.toLowerCase())) &&
+                (!arah || s.arah === arah)
+            );
+
+            const tbody = document.getElementById('scheduleTableBody');
+            tbody.innerHTML = filteredSchedules.map(s => `
+                <tr class="border-b border-[#e5dfdc] hover:bg-gray-50">
+                    <td class="py-3 px-4 text-[#181411]">${s.no}</td>
+                    <td class="py-3 px-4 text-[#181411]">${s.asal}</td>
+                    <td class="py-3 px-4 text-[#181411]">${s.berangkat}</td>
+                    <td class="py-3 px-4 text-[#181411]">${s.tujuan}</td>
+                    <td class="py-3 px-4 text-[#181411]">${s.tiba}</td>
+                    <td class="py-3 px-4 text-[#181411]">${s.durasi}</td>
+                </tr>
+            `).join('');
+        }
+
+        // Event Listeners
+        document.getElementById('stasiunFilter').addEventListener('change', (e) => {
+            renderSchedules(e.target.value, document.getElementById('arahFilter').value);
+        });
+
+        document.getElementById('arahFilter').addEventListener('change', (e) => {
+            renderSchedules(document.getElementById('stasiunFilter').value, e.target.value);
+        });
+
+        // Initial render
+        renderSchedules();
+    </script>
+</body>
+</html> 

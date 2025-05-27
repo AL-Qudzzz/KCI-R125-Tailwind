@@ -1,0 +1,10 @@
+[
+  { "asal": "jakarta", "tujuan": "bandung", "jadwal": ["07:00", "13:00"], "harga": 250000 },
+  { "asal": "bandung", "tujuan": "kroya", "jadwal": ["08:00", "14:00"], "harga": 200000 },
+  { "asal": "kroya", "tujuan": "yogyakarta", "jadwal": ["09:00", "15:00"], "harga": 180000 },
+  { "asal": "yogyakarta", "tujuan": "solo", "jadwal": ["10:00", "16:00"], "harga": 120000 },
+  { "asal": "solo", "tujuan": "madiun", "jadwal": ["11:00", "17:00"], "harga": 100000 },
+  { "asal": "madiun", "tujuan": "jombang", "jadwal": ["12:00", "18:00"], "harga": 90000 },
+  { "asal": "jombang", "tujuan": "surabaya", "jadwal": ["13:00", "19:00"], "harga": 110000 },
+  { "asal": "jakarta", "tujuan": "surabaya", "jadwal": ["07:00", "19:00"], "harga": 500000 }
+] 
