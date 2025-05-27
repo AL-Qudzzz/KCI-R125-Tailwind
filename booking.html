@@ -121,7 +121,7 @@
                       </div>
                       <div class="flex flex-col gap-2">
                         <label for="jumlah" class="font-medium">Jumlah Penumpang</label>
-                        <input type="number" id="jumlah" min="1" max="4" value="1" required class="rounded border border-[#e5dfdc] p-2 focus:ring-2 focus:ring-[#e87a30] focus:border-[#e87a30] transition-colors" />
+                        <input type="number" id="jumlah" min="1" max="10" value="1" required class="rounded border border-[#e5dfdc] p-2 focus:ring-2 focus:ring-[#e87a30] focus:border-[#e87a30] transition-colors" />
                       </div>
                       <div class="flex flex-col gap-2">
                         <label for="nama" class="font-medium">Nama Lengkap</label>
@@ -135,6 +135,18 @@
                         <label for="hp" class="font-medium">No. HP</label>
                         <input type="tel" id="hp" required class="rounded border border-[#e5dfdc] p-2 focus:ring-2 focus:ring-[#e87a30] focus:border-[#e87a30] transition-colors" />
                       </div>
+                    </div>
+                    <!-- Setelah input stasiun tujuan, tambahkan info box di dalam form -->
+                    <div id="infoJadwalHarga" class="mt-2 mb-2 text-sm text-[#181411] bg-[#f8f6f4] rounded p-3 flex flex-col gap-2">
+                      <div id="hargaTiket" class="text-lg font-bold text-[#e87a30]"></div>
+                      <div class="flex flex-col gap-1">
+                        <label for="jam" class="font-medium">Jam Keberangkatan</label>
+                        <select id="jam" name="jam" class="rounded border border-[#e5dfdc] p-2 focus:ring-2 focus:ring-[#e87a30] focus:border-[#e87a30] transition-colors" required>
+                          <option value="">Pilih Jam</option>
+                        </select>
+                      </div>
+                      <div id="estimasiTiba" class="text-[#181411]"></div>
+                      <div id="infoKursi" class="text-[#181411]"></div>
                     </div>
                     <button type="submit" class="mt-4 flex items-center justify-center rounded-lg bg-[#e87a30] px-4 py-2 text-white font-bold hover:bg-[#d46a1e] transition-colors w-full md:w-auto">Pesan Tiket</button>
                   </form>
@@ -187,6 +199,11 @@
           return;
         }
         const bookingId = 'KCI-' + Date.now().toString(36).toUpperCase();
+        // Generate nomor kursi (A1, A2, ...)
+        let seatNumbers = [];
+        for (let i = 1; i <= jumlah; i++) {
+          seatNumbers.push('A' + i);
+        }
         try {
           await addDoc(collection(db, 'bookings'), {
             bookingId,
@@ -198,11 +215,13 @@
             nama,
             email,
             hp,
+            seatNumbers,
             waktuBooking: new Date().toISOString()
           });
-          document.getElementById('ringkasan').innerHTML = `
+          // Isi modal tiket
+          document.getElementById('modalTiketContent').innerHTML = `
             <div>
-              <h3>Tiket Digital</h3>
+              <h3 class='text-[#e87a30] font-bold mb-2'>Tiket Digital</h3>
               <ul style='margin-bottom:1rem;'>
                 <li><b>No. Booking:</b> ${bookingId}</li>
                 <li><b>Nama:</b> ${nama}</li>
@@ -213,37 +232,122 @@
                 <li><b>Tujuan:</b> ${document.querySelector('#tujuan option:checked').textContent}</li>
                 <li><b>Tanggal:</b> ${tanggal}</li>
                 <li><b>Jumlah Penumpang:</b> ${jumlah}</li>
+                <li><b>Nomor Kursi:</b> ${seatNumbers.join(', ')}</li>
               </ul>
-              <span class='text-green-700 font-semibold'>Booking berhasil! Tiket tersimpan di cloud.</span>
-              <br>
-              <button onclick="window.print()" class="btn" style="margin-top:1rem;">Cetak Tiket</button>
+              <span class='text-green-700 font-semibold'>Booking berhasil!</span>
             </div>
           `;
+          document.getElementById('modalTiket').classList.remove('hidden');
           document.getElementById('bookingForm').reset();
         } catch (err) {
           alert('Gagal booking: ' + err.message);
         }
       }
     </script>
+    <!-- Tambahkan import jadwal-data.js sebelum script Firebase -->
+    <script src="js/jadwal-data.js"></script>
+    
+    <!-- Tambahkan script update info harga & jadwal -->
     <script>
-      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-      const closeMobileMenu = document.getElementById('closeMobileMenu');
-      const mobileMenu = document.getElementById('mobileMenu');
-
-      mobileMenuBtn.addEventListener('click', () => {
-        mobileMenu.classList.remove('translate-x-full');
+    function estimasiDurasi(asal, tujuan) {
+      // Jakarta-Bandung 45 menit, tiap stasiun berikutnya +1j 30m
+      const idxAsal = stasiunList.indexOf(asal);
+      const idxTujuan = stasiunList.indexOf(tujuan);
+      if (idxAsal === -1 || idxTujuan === -1 || asal === tujuan) return '';
+      let jarak = Math.abs(idxTujuan - idxAsal);
+      if (jarak === 0) return '';
+      let menit = 45 + (jarak - 1) * 90;
+      let jam = Math.floor(menit / 60);
+      let sisaMenit = menit % 60;
+      return jam ? `${jam} jam${sisaMenit ? ' ' + sisaMenit + ' menit' : ''}` : `${sisaMenit} menit`;
+    }
+    function updateInfoJadwalHarga() {
+      const asal = document.getElementById('asal').value;
+      const tujuan = document.getElementById('tujuan').value;
+      const kelas = document.getElementById('kelas').value;
+      const hargaDiv = document.getElementById('hargaTiket');
+      const jamSelect = document.getElementById('jam');
+      const estimasiDiv = document.getElementById('estimasiTiba');
+      const kursiDiv = document.getElementById('infoKursi');
+      const jumlah = parseInt(document.getElementById('jumlah').value) || 1;
+      if (!asal || !tujuan || asal === tujuan || !kelas) {
+        hargaDiv.textContent = '';
+        jamSelect.innerHTML = '<option value="">Pilih Jam</option>';
+        estimasiDiv.textContent = '';
+        kursiDiv.textContent = '';
+        return;
+      }
+      // Cari jadwal
+      let jadwal = jadwalData.find(j => j.asal === asal && j.tujuan === tujuan);
+      if (!jadwal) jadwal = jadwalData.find(j => j.asal === tujuan && j.tujuan === asal); // Cek arah sebaliknya
+      let jamList = jadwal ? jadwal.jam : [];
+      // Hitung harga
+      let harga = hitungHarga(asal, tujuan, kelas);
+      let total = harga * jumlah;
+      let totalStr = total ? 'Rp ' + total.toLocaleString('id-ID') : '-';
+      hargaDiv.textContent = total ? `Harga Tiket: ${totalStr}` : '';
+      // Isi dropdown jam
+      jamSelect.innerHTML = '<option value="">Pilih Jam</option>';
+      jamList.forEach(jam => {
+        const opt = document.createElement('option');
+        opt.value = jam;
+        opt.textContent = jam;
+        jamSelect.appendChild(opt);
       });
-
-      closeMobileMenu.addEventListener('click', () => {
-        mobileMenu.classList.add('translate-x-full');
+      // Estimasi tiba
+      const estimasi = estimasiDurasi(asal, tujuan);
+      estimasiDiv.textContent = estimasi ? `Estimasi Durasi: ${estimasi}` : '';
+      // Info kursi (dummy random)
+      kursiDiv.textContent = jamList.length ? `Kursi tersedia: ${Math.floor(Math.random()*81)+20}` : '';
+    }
+    ['asal','tujuan','kelas','jumlah'].forEach(id => {
+      document.getElementById(id).addEventListener('change', updateInfoJadwalHarga);
+    });
+    document.getElementById('jam').addEventListener('change', function() {
+      // Bisa tambahkan fitur lain jika ingin saat jam dipilih
+    });
+    // Validasi jam sebelum submit
+    const bookingForm = document.getElementById('bookingForm');
+    if (bookingForm) {
+      bookingForm.addEventListener('submit', function(e) {
+        const jam = document.getElementById('jam').value;
+        if (!jam) {
+          alert('Pilih jam keberangkatan!');
+          e.preventDefault();
+          return false;
+        }
       });
-
-      // Close mobile menu when clicking a link
-      document.querySelectorAll('#mobileMenu a').forEach(link => {
-        link.addEventListener('click', () => {
-          mobileMenu.classList.add('translate-x-full');
-        });
-      });
+    }
+    </script>
+    <script src="js/mobileMenu.js"></script>
+    <!-- Modal Tiket Digital -->
+    <div id="modalTiket" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 hidden">
+      <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6 relative">
+        <button id="closeModalTiket" class="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-2xl">&times;</button>
+        <div id="modalTiketContent"></div>
+        <button onclick="printTiket()" class="mt-6 w-full flex items-center justify-center rounded-lg bg-red-600 px-4 py-3 text-white font-bold text-lg hover:bg-red-700 transition-colors">Cetak Tiket</button>
+      </div>
+    </div>
+    <script type="module">
+    // Modal close logic
+    const modalTiket = document.getElementById('modalTiket');
+    document.getElementById('closeModalTiket').onclick = function() {
+      modalTiket.classList.add('hidden');
+    }
+    window.onclick = function(event) {
+      if (event.target === modalTiket) {
+        modalTiket.classList.add('hidden');
+      }
+    }
+    // Print only modal content
+    window.printTiket = function() {
+      const printContents = document.getElementById('modalTiketContent').innerHTML;
+      const originalContents = document.body.innerHTML;
+      document.body.innerHTML = printContents;
+      window.print();
+      document.body.innerHTML = originalContents;
+      window.location.reload();
+    }
     </script>
   </body>
 </html>

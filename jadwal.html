@@ -318,26 +318,6 @@
             }
         });
     </script>
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        var mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        var closeMobileMenu = document.getElementById('closeMobileMenu');
-        var mobileMenu = document.getElementById('mobileMenu');
-        if (!mobileMenuBtn) { console.error('mobileMenuBtn not found!'); return; }
-        if (!closeMobileMenu) { console.error('closeMobileMenu not found!'); return; }
-        if (!mobileMenu) { console.error('mobileMenu not found!'); return; }
-        mobileMenuBtn.addEventListener('click', function() {
-          mobileMenu.classList.remove('translate-x-full');
-        });
-        closeMobileMenu.addEventListener('click', function() {
-          mobileMenu.classList.add('translate-x-full');
-        });
-        document.querySelectorAll('#mobileMenu a').forEach(function(link) {
-          link.addEventListener('click', function() {
-            mobileMenu.classList.add('translate-x-full');
-          });
-        });
-      });
-    </script>
+    <script src="js/mobileMenu.js"></script>
 </body>
 </html> 

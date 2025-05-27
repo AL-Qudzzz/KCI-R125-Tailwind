@@ -96,25 +96,6 @@
     </div>
   </main>
   <div class="footer text-center py-4 text-gray-500">&copy; 2024 KCI Ticket Booking. All rights reserved.</div>
-  <script>
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const closeMobileMenu = document.getElementById('closeMobileMenu');
-    const mobileMenu = document.getElementById('mobileMenu');
-
-    mobileMenuBtn.addEventListener('click', () => {
-      mobileMenu.classList.remove('translate-x-full');
-    });
-
-    closeMobileMenu.addEventListener('click', () => {
-      mobileMenu.classList.add('translate-x-full');
-    });
-
-    // Close mobile menu when clicking a link
-    document.querySelectorAll('#mobileMenu a').forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.add('translate-x-full');
-      });
-    });
-  </script>
+  <script src="js/mobileMenu.js"></script>
 </body>
 </html> 

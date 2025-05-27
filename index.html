@@ -277,25 +277,6 @@
       </div>
     </div>
     <!-- Add mobile menu script at the end of body -->
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const closeMobileMenu = document.getElementById('closeMobileMenu');
-        const mobileMenu = document.getElementById('mobileMenu');
-        if (mobileMenuBtn && closeMobileMenu && mobileMenu) {
-          mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.remove('translate-x-full');
-          });
-          closeMobileMenu.addEventListener('click', () => {
-            mobileMenu.classList.add('translate-x-full');
-          });
-          document.querySelectorAll('#mobileMenu a').forEach(link => {
-            link.addEventListener('click', () => {
-              mobileMenu.classList.add('translate-x-full');
-            });
-          });
-        }
-      });
-    </script>
+    <script src="js/mobileMenu.js"></script>
   </body>
 </html>
