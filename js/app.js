@@ -474,4 +474,42 @@ window.showPage = function(page) {
     document.getElementById('jadwalPage').classList.remove('hidden');
     window.renderJadwalPage();
   }
-} 
+}
+
+// Initialize scroll animations
+function initScrollAnimations() {
+  const animatedElements = document.querySelectorAll('.animate-on-scroll');
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // Once animation is done, we can stop observing
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  });
+
+  animatedElements.forEach(element => {
+    observer.observe(element);
+  });
+}
+
+// Initialize animations when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+  initScrollAnimations();
+  
+  // Add animation classes to elements
+  document.querySelectorAll('.card, .form-box, .table-box').forEach((element, index) => {
+    element.classList.add('animate-on-scroll');
+  });
+  
+  // Add staggered animations to lists
+  document.querySelectorAll('.nav-menu a').forEach((link, index) => {
+    link.classList.add('animate-slide-in-right');
+    link.style.animationDelay = `${index * 0.1}s`;
+  });
+}); 
