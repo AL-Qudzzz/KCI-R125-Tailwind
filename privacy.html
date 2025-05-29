@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy - RailExpress</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="relative flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden" style='font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'>
+    <div class="layout-container flex h-full grow flex-col">
+      <!-- Header -->
+      <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f4f2f0] px-4 md:px-10 py-3 sticky top-0 z-50 bg-white">
+        <div class="flex items-center gap-4 text-[#181411]">
+          <div class="size-4">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M39.5563 34.1455V13.8546C39.5563 15.708 36.8773 17.3437 32.7927 18.3189C30.2914 18.916 27.263 19.2655 24 19.2655C20.737 19.2655 17.7086 18.916 15.2073 18.3189C11.1227 17.3437 8.44365 15.708 8.44365 13.8546V34.1455C8.44365 35.9988 11.1227 37.6346 15.2073 38.6098C17.7086 39.2069 20.737 39.5564 24 39.5564C27.263 39.5564 30.2914 39.2069 32.7927 38.6098C36.8773 37.6346 39.5563 35.9988 39.5563 34.1455Z" fill="currentColor"></path></svg>
+          </div>
+          <h2 class="text-[#181411] text-lg font-bold leading-tight tracking-[-0.015em]">RailExpress</h2>
+        </div>
+        <button id="mobileMenuBtn" class="md:hidden flex flex-col gap-1.5 p-2">
+          <span class="block w-6 h-0.5 bg-[#181411]"></span>
+          <span class="block w-6 h-0.5 bg-[#181411]"></span>
+          <span class="block w-6 h-0.5 bg-[#181411]"></span>
+        </button>
+        <div class="hidden md:flex flex-1 justify-end gap-8">
+          <div class="flex items-center gap-9">
+            <a class="text-[#181411] text-sm font-medium leading-normal hover:text-[#e87a30] transition-colors" href="index.html">Home</a>
+            <a class="text-[#181411] text-sm font-medium leading-normal hover:text-[#e87a30] transition-colors" href="booking.html">Book</a>
+            <a class="text-[#181411] text-sm font-medium leading-normal hover:text-[#e87a30] transition-colors" href="jadwal.html">Destinations</a>
+            <a class="text-[#181411] text-sm font-medium leading-normal hover:text-[#e87a30] transition-colors" href="experience.html">Experience</a>
+          </div>
+          <button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#e87a30] text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-[#d46a1e] transition-colors sign-in-btn">
+            <span class="truncate">Sign In</span>
+          </button>
+        </div>
+        <div id="mobileMenu" class="fixed inset-0 bg-white z-50 transform translate-x-full transition-transform duration-300 ease-in-out md:hidden">
+          <div class="flex flex-col h-full">
+            <div class="flex justify-between items-center p-4 border-b">
+              <h2 class="text-[#181411] text-lg font-bold">RailExpress</h2>
+              <button id="closeMobileMenu" class="p-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </button>
+            </div>
+            <nav class="flex flex-col p-4">
+              <a class="py-3 text-[#181411] text-base font-medium hover:text-[#e87a30] transition-colors" href="index.html">Home</a>
+              <a class="py-3 text-[#181411] text-base font-medium hover:text-[#e87a30] transition-colors" href="booking.html">Book</a>
+              <a class="py-3 text-[#181411] text-base font-medium hover:text-[#e87a30] transition-colors" href="jadwal.html">Destinations</a>
+              <a class="py-3 text-[#181411] text-base font-medium hover:text-[#e87a30] transition-colors" href="experience.html">Experience</a>
+              <a class="py-3 text-[#181411] text-base font-medium hover:text-[#e87a30] transition-colors" href="about.html">About Us</a>
+              <a class="py-3 text-[#181411] text-base font-medium hover:text-[#e87a30] transition-colors" href="contact.html">Contact</a>
+              <a class="py-3 text-[#181411] text-base font-medium hover:text-[#e87a30] transition-colors" href="terms.html">Terms of Service</a>
+              <a class="py-3 text-[#181411] text-base font-medium hover:text-[#e87a30] transition-colors" href="privacy.html">Privacy Policy</a>
+              <button class="mt-4 w-full flex items-center justify-center rounded-lg h-12 bg-[#e87a30] text-white text-base font-bold hover:bg-[#d46a1e] transition-colors sign-in-btn">
+                Sign In
+              </button>
+            </nav>
+          </div>
+        </div>
+      </header>
+      <main class="flex-1 flex flex-col items-center justify-center py-10 px-4">
+        <div class="max-w-2xl w-full bg-white rounded-lg shadow-lg p-8">
+          <h1 class="text-3xl font-bold mb-4 text-[#e87a30]">Privacy Policy</h1>
+          <p class="text-[#181411] mb-4">Your privacy is important to us. This policy explains how RailExpress collects, uses, and protects your personal information.</p>
+          <ul class="text-[#181411] mb-4 list-disc pl-6">
+            <li>We only collect information necessary for booking and customer service.</li>
+            <li>Your data is stored securely and not shared with third parties except as required by law.</li>
+            <li>You can request to view, update, or delete your data at any time.</li>
+            <li>For questions about privacy, contact our support team.</li>
+          </ul>
+          <p class="text-[#181411]">By using RailExpress, you agree to this privacy policy.</p>
+        </div>
+      </main>
+      <footer class="flex justify-center w-full mt-auto">
+        <div class="flex w-full max-w-[960px] flex-1 flex-col">
+          <footer class="flex flex-col gap-6 px-4 md:px-5 py-10 text-center @container">
+            <div class="flex flex-wrap items-center justify-center gap-4 md:gap-6 @[480px]:flex-row @[480px]:justify-around">
+              <a class="text-[#887263] text-base font-normal leading-normal min-w-40" href="about.html">About Us</a>
+              <a class="text-[#887263] text-base font-normal leading-normal min-w-40" href="contact.html">Contact</a>
+              <a class="text-[#887263] text-base font-normal leading-normal min-w-40" href="terms.html">Terms of Service</a>
+              <a class="text-[#887263] text-base font-normal leading-normal min-w-40" href="privacy.html">Privacy Policy</a>
+            </div>
+            <p class="text-[#887263] text-base font-normal leading-normal">@2024 RailExpress. All rights reserved.</p>
+          </footer>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <script src="js/mobileMenu.js"></script>
+  <script type="module" src="js/auth.js"></script>
+</body>
+</html> 

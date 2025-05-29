@@ -102,6 +102,11 @@ const loginModalHTML = `
 // Add modals to body
 document.body.insertAdjacentHTML('beforeend', loginModalHTML);
 
+// Get sign-in buttons
+// const signInButtons = document.querySelectorAll('button:has(span:contains("Sign In"))'); // Ganti selector ini
+const desktopSignInButton = document.querySelector('.hidden.md\\:flex .sign-in-btn'); // Tombol Sign In di desktop nav
+const mobileSignInButton = document.querySelector('#mobileMenu .sign-in-btn'); // Tombol Sign In di mobile menu
+
 // Get modal elements
 const loginModal = document.getElementById('loginModal');
 const registerModal = document.getElementById('registerModal');
@@ -146,7 +151,7 @@ loginForm.addEventListener('submit', async (e) => {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     console.log('Logged in:', userCredential.user);
     hideLoginModal();
-    updateAuthUI();
+    updateAuthUI(userCredential.user);
   } catch (error) {
     alert(error.message);
   }
@@ -168,7 +173,7 @@ registerForm.addEventListener('submit', async (e) => {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     console.log('Registered:', userCredential.user);
     hideRegisterModal();
-    updateAuthUI();
+    updateAuthUI(userCredential.user);
   } catch (error) {
     alert(error.message);
   }
@@ -178,41 +183,51 @@ registerForm.addEventListener('submit', async (e) => {
 async function handleLogout() {
   try {
     await signOut(auth);
-    updateAuthUI();
+    updateAuthUI(null);
   } catch (error) {
     console.error('Error signing out:', error);
   }
 }
 
-// Update UI based on auth state
-function updateAuthUI() {
-  const signInButtons = document.querySelectorAll('.sign-in-btn');
-  const user = auth.currentUser;
+// Function to update UI based on auth state
+function updateAuthUI(user) {
+  // Remove existing user info and logout buttons to prevent duplicates
+  document.querySelectorAll('.user-info-container').forEach(el => el.remove());
+  document.querySelectorAll('.logout-btn').forEach(el => el.remove());
 
   if (user) {
-    signInButtons.forEach(button => {
-      button.innerHTML = `
-        <div class="flex items-center gap-2">
-          <span class="truncate font-bold">${user.email}</span>
-        </div>
+    // User is signed in
+    // Desktop UI
+    if (desktopSignInButton) {
+      const desktopUserInfo = document.createElement('div');
+      desktopUserInfo.className = 'flex items-center gap-2 user-info-container';
+      desktopUserInfo.innerHTML = `
+        <span class="truncate font-bold">${user.email}</span>
+        <button type="button" class="logout-btn ml-2 px-3 py-1 rounded bg-[#e87a30] text-white font-bold hover:bg-[#d46a1e] transition-colors">Logout</button>
       `;
-      button.onclick = null;
-      let logoutBtn = document.createElement('button');
-      logoutBtn.type = 'button';
-      logoutBtn.className = 'logout-btn ml-2 px-3 py-1 rounded bg-[#e87a30] text-white font-bold hover:bg-[#d46a1e] transition-colors';
-      logoutBtn.textContent = 'Logout';
-      logoutBtn.onclick = handleLogout;
-      button.parentNode.insertBefore(logoutBtn, button.nextSibling);
-    });
+      desktopSignInButton.parentNode.insertBefore(desktopUserInfo, desktopSignInButton);
+      desktopSignInButton.style.display = 'none'; // Hide the original Sign In button
+      desktopUserInfo.querySelector('.logout-btn').onclick = handleLogout;
+    }
+
+    // Mobile UI
+    if (mobileSignInButton) {
+      const mobileUserInfo = document.createElement('div');
+      mobileUserInfo.className = 'flex items-center gap-2 user-info-container';
+      mobileUserInfo.innerHTML = `
+        <span class="truncate font-bold">${user.email}</span>
+        <button type="button" class="logout-btn ml-2 px-3 py-1 rounded bg-[#e87a30] text-white font-bold hover:bg-[#d46a1e] transition-colors">Logout</button>
+      `;
+      mobileSignInButton.parentNode.insertBefore(mobileUserInfo, mobileSignInButton);
+      mobileSignInButton.style.display = 'none'; // Hide the original Sign In button
+      mobileUserInfo.querySelector('.logout-btn').onclick = handleLogout;
+    }
+
   } else {
-    signInButtons.forEach(button => {
-      button.innerHTML = '<span class="truncate">Sign In</span>';
-      button.onclick = showLoginModal;
-      const next = button.nextSibling;
-      if (next && next.classList && next.classList.contains('logout-btn')) {
-        next.remove();
-      }
-    });
+    // User is signed out
+    // Show Sign In buttons again
+    if (desktopSignInButton) desktopSignInButton.style.display = '';
+    if (mobileSignInButton) mobileSignInButton.style.display = '';
   }
 }
 
@@ -232,9 +247,17 @@ showLoginBtn.addEventListener('click', (e) => {
 closeLoginModal.addEventListener('click', hideLoginModal);
 closeRegisterModal.addEventListener('click', hideRegisterModal);
 
+// Attach event listeners to Sign In buttons initially
+if (desktopSignInButton) {
+  desktopSignInButton.addEventListener('click', showLoginModal);
+}
+if (mobileSignInButton) {
+  mobileSignInButton.addEventListener('click', showLoginModal);
+}
+
 // Listen for auth state changes
 onAuthStateChanged(auth, (user) => {
-  updateAuthUI();
+  updateAuthUI(user);
 });
 
 // Export functions for use in other files
