@@ -237,32 +237,118 @@ function displayTicket(bookingData) {
 
 // Handle print ticket
 function handlePrintTicket() {
+    const bookingData = window.selectedTrain && window.selectedTrain.bookingId ? window.selectedTrain : window.lastBookingData;
     const printWindow = window.open('', '_blank');
     printWindow.document.write(`
         <html>
             <head>
-                <title>KCI Ticket - ${window.selectedTrain.bookingId}</title>
+                <title>KCI Ticket - ${bookingData.bookingId}</title>
                 <style>
-                    body { font-family: Arial, sans-serif; padding: 20px; }
-                    .ticket { border: 2px dashed #ccc; padding: 20px; max-width: 800px; margin: 0 auto; }
-                    .header { text-align: center; margin-bottom: 20px; }
-                    .details { margin: 20px 0; }
-                    .footer { text-align: center; margin-top: 20px; font-size: 12px; color: #666; }
+                    body { font-family: Arial, sans-serif; padding: 0; margin: 0; background: #fff; }
+                    .ticket {
+                        border: 2px dashed #b0b0b0;
+                        padding: 24px 32px;
+                        max-width: 420px;
+                        margin: 32px auto;
+                        background: #fff;
+                        box-shadow: 0 2px 12px 0 #0001;
+                    }
+                    .header {
+                        text-align: center;
+                        margin-bottom: 12px;
+                    }
+                    .header h2 {
+                        margin: 0 0 4px 0;
+                        font-size: 1.2rem;
+                        color: #b71c1c;
+                        letter-spacing: 1px;
+                    }
+                    .header small {
+                        color: #888;
+                        font-size: 0.9em;
+                    }
+                    .info-table {
+                        width: 100%;
+                        margin: 12px 0 0 0;
+                        border-collapse: collapse;
+                        font-size: 1em;
+                    }
+                    .info-table td {
+                        padding: 2px 0;
+                        vertical-align: top;
+                    }
+                    .section-title {
+                        font-weight: bold;
+                        color: #b71c1c;
+                        margin-top: 16px;
+                        margin-bottom: 4px;
+                        font-size: 1em;
+                    }
+                    .qr-container {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        margin: 18px 0 10px 0;
+                    }
+                    .footer {
+                        text-align: center;
+                        margin-top: 18px;
+                        font-size: 0.95em;
+                        color: #666;
+                    }
+                    .barcode {
+                        text-align: center;
+                        font-size: 0.9em;
+                        margin-top: 8px;
+                        letter-spacing: 2px;
+                    }
                 </style>
             </head>
             <body>
                 <div class="ticket">
-                    ${ticketDetails.innerHTML}
+                    <div class="header">
+                        <h2>Tiket KCI - Kereta Cepat Indonesia</h2>
+                        <small>Kenyamanan & Keamanan Perjalanan Anda</small>
+                    </div>
+                    <table class="info-table">
+                        <tr><td><b>Tgl Brkt</b></td><td>: ${bookingData.date}</td></tr>
+                        <tr><td><b>Jam Brkt</b></td><td>: ${bookingData.time}</td></tr>
+                        <tr><td><b>Kelas</b></td><td>: ${bookingData.classLabel || bookingData.class || '-'}</td></tr>
+                        <tr><td><b>Nama</b></td><td>: ${bookingData.passenger?.fullName || '-'}</td></tr>
+                        <tr><td><b>No HP</b></td><td>: ${bookingData.passenger?.phone || '-'}</td></tr>
+                        <tr><td><b>Asal</b></td><td>: ${bookingData.departureLabel || bookingData.departure}</td></tr>
+                        <tr><td><b>Tujuan</b></td><td>: ${bookingData.arrivalLabel || bookingData.arrival}</td></tr>
+                        <tr><td><b>Tarif</b></td><td>: Rp ${bookingData.totalPrice ? bookingData.totalPrice.toLocaleString('id-ID') : '-'}</td></tr>
+                        <tr><td><b>No Booking</b></td><td>: ${bookingData.bookingId}</td></tr>
+                    </table>
+                    <div class="qr-container">
+                        <div id="qrcode-print"></div>
+                    </div>
+                    <div class="barcode">${bookingData.bookingId}</div>
                     <div class="footer">
-                        <p>Tiket ini adalah bukti pembayaran yang sah</p>
-                        <p>Harap tunjukkan tiket ini saat naik kereta</p>
+                        <p>Tunjukkan tiket ini saat boarding.<br>Info & Bantuan: <b>0811-7881-7788</b></p>
+                        <p>Harap hadir 30 menit sebelum jadwal keberangkatan.</p>
+                        <p style="font-size:0.85em;color:#aaa;">Tiket digital ini sah tanpa tanda tangan/cap.</p>
                     </div>
                 </div>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+                <script>
+                    window.onload = function() {
+                        new QRCode(document.getElementById('qrcode-print'), {
+                            text: '${bookingData.bookingId}',
+                            width: 120,
+                            height: 120,
+                            colorDark: '#000',
+                            colorLight: '#fff',
+                            correctLevel: QRCode.CorrectLevel.H
+                        });
+                        setTimeout(function() { window.print(); }, 500);
+                    };
+                </script>
             </body>
         </html>
     `);
     printWindow.document.close();
-    printWindow.print();
 }
 
 // Handle download ticket as PDF

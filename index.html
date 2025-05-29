@@ -8,7 +8,7 @@
       href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Plus+Jakarta+Sans%3Awght%40400%3B500%3B700%3B800"
     />
 
-    <title>Stitch Design</title>
+    <title>KCI Express</title>
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
 
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -16,7 +16,7 @@
   <body>
     <div class="relative flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden" style='font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'>
       <div class="layout-container flex h-full grow flex-col">
-        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f4f2f0] px-4 md:px-10 py-3">
+        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f4f2f0] px-4 md:px-10 py-3 sticky top-0 z-50 bg-white">
           <div class="flex items-center gap-4 text-[#181411]">
             <div class="size-4">
               <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -48,7 +48,7 @@
               <a class="text-[#181411] text-sm font-medium leading-normal hover:text-[#e87a30] transition-colors" href="jadwal.html">Destinations</a>
               <a class="text-[#181411] text-sm font-medium leading-normal hover:text-[#e87a30] transition-colors" href="experience.html">Experience</a>
             </div>
-            <button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#e87a30] text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-[#d46a1e] transition-colors">
+            <button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#e87a30] text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-[#d46a1e] transition-colors sign-in-btn">
               <span class="truncate">Sign In</span>
             </button>
           </div>
@@ -68,15 +68,15 @@
                 <a class="py-3 text-[#181411] text-base font-medium hover:text-[#e87a30] transition-colors" href="booking.html">Book</a>
                 <a class="py-3 text-[#181411] text-base font-medium hover:text-[#e87a30] transition-colors" href="jadwal.html">Destinations</a>
                 <a class="py-3 text-[#181411] text-base font-medium hover:text-[#e87a30] transition-colors" href="experience.html">Experience</a>
-                <button class="mt-4 w-full flex items-center justify-center rounded-lg h-12 bg-[#e87a30] text-white text-base font-bold hover:bg-[#d46a1e] transition-colors">
+                <button class="mt-4 w-full flex items-center justify-center rounded-lg h-12 bg-[#e87a30] text-white text-base font-bold hover:bg-[#d46a1e] transition-colors sign-in-btn">
                   Sign In
                 </button>
               </nav>
             </div>
           </div>
         </header>
-        <div class="px-40 flex flex-1 justify-center py-5">
-          <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+        <div class="px-2 sm:px-4 md:px-10 lg:px-40 w-full flex-1 py-5">
+          <div class="layout-content-container flex flex-col w-full md:max-w-[960px] mx-auto flex-1">
             <div class="@container">
               <div class="@[480px]:p-4">
                 <div
@@ -112,7 +112,7 @@
                 </h1>
                 <p class="text-[#181411] text-base font-normal leading-normal max-w-[720px]">Discover the advantages of high-speed rail travel with RailExpress.</p>
               </div>
-              <div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3 p-0">
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-3 p-0">
                 <div class="flex flex-1 gap-3 rounded-lg border border-[#e5dfdc] bg-white p-4 flex-col">
                   <div class="text-[#181411]" data-icon="Clock" data-size="24px" data-weight="regular">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
@@ -157,7 +157,7 @@
               </div>
             </div>
             <h2 class="text-[#181411] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Explore Our Destinations</h2>
-            <div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3 p-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 p-4">
               <div class="flex flex-col gap-3 pb-3">
                 <div
                   class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg"
@@ -200,8 +200,8 @@
               </div>
             </div>
             <h2 class="text-[#181411] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Special Offers</h2>
-            <div class="flex overflow-y-auto [-ms-scrollbar-style:none] [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden">
-              <div class="flex items-stretch p-4 gap-3">
+            <div class="flex overflow-x-auto [-ms-scrollbar-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <div class="flex items-stretch p-4 gap-3 min-w-full">
                 <div class="flex h-full flex-1 flex-col gap-4 rounded-lg min-w-60">
                   <div
                     class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg flex flex-col"
@@ -241,10 +241,10 @@
             </div>
           </div>
         </div>
-        <footer class="flex justify-center">
-          <div class="flex max-w-[960px] flex-1 flex-col">
-            <footer class="flex flex-col gap-6 px-5 py-10 text-center @container">
-              <div class="flex flex-wrap items-center justify-center gap-6 @[480px]:flex-row @[480px]:justify-around">
+        <footer class="flex justify-center w-full">
+          <div class="flex w-full max-w-[960px] flex-1 flex-col">
+            <footer class="flex flex-col gap-6 px-4 md:px-5 py-10 text-center @container">
+              <div class="flex flex-wrap items-center justify-center gap-4 md:gap-6 @[480px]:flex-row @[480px]:justify-around">
                 <a class="text-[#887263] text-base font-normal leading-normal min-w-40" href="#">About Us</a>
                 <a class="text-[#887263] text-base font-normal leading-normal min-w-40" href="#">Contact</a>
                 <a class="text-[#887263] text-base font-normal leading-normal min-w-40" href="#">Terms of Service</a>
@@ -258,5 +258,6 @@
     </div>
     <!-- Add mobile menu script at the end of body -->
     <script src="js/mobileMenu.js"></script>
+    <script type="module" src="js/auth.js"></script>
   </body>
 </html>
